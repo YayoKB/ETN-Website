@@ -1,4 +1,6 @@
-<h1 align="center">Empowering the Nation Website</h1>
+<h1 align="center"><a href="https://empoweringthenation.netlify.app/">🌱 Empowering the Nation Website 🌱</a></h1>
+
+![Empowering-the-Nation](https://user-images.githubusercontent.com/38580104/196951504-93715a82-001e-40bf-8f58-05894dd277f9.png)
 
 # Overview
 ## 🤝🏼 Team members:
