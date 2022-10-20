@@ -5,15 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact</title>
+    <link rel="shortcut icon" href="../images/etnlogo_small.png" type="image/x-icon" />
     <link rel="stylesheet" href="../css/global.css" />
     <script src="../scripts/url_data.js"></script>
     <script src="../scripts/cart.js"></script>
     <script type="text/javascript">
-
-      function document_onload()
-      {
-        if(url_contains_data(document.URL))
-        {
+      function document_onload() {
+        if (url_contains_data(document.URL)) {
           let cart_items = [];
           let urlData = document.URL.substring(document.URL.indexOf("?"));
 
@@ -27,13 +25,11 @@
           let links = document.getElementsByTagName("a");
           let index = 0;
 
-          for(index = 0; index < links.length; index++)
-          {
+          for (index = 0; index < links.length; index++) {
             update_link_with_cart(links[index], cartToURLData(cart_items));
           }
         }
       }
-
     </script>
   </head>
 
