@@ -2,6 +2,10 @@
 
 ![Empowering-the-Nation](https://user-images.githubusercontent.com/38580104/196951504-93715a82-001e-40bf-8f58-05894dd277f9.png)
 
+<div align="center" display="inline"><a href="https://github.com/YayoKB/ETN-App">Click here for the App version</a></div>
+
+# Overview
+
 # Overview
 ## 🤝🏼 Team members:
 - 👩🏼 Me (Designer and Front-End styling)
