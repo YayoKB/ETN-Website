@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Child Minding</title>
+    <link rel="stylesheet" href="../../css/global.css" />
+    <link rel="shortcut icon" href="../../images/etnlogo_small.png" type="image/x-icon" />
+    <script src="../../scripts/url_data.js"></script>
+    <script src="../../scripts/cart.js"></script>
+    <script type="text/javascript">
+      let cart_items = [];
+
+      function document_onload() {
+        if (url_contains_data(document.URL)) {
+          let urlData = document.URL.substring(document.URL.indexOf("?"));
+
+          let data = new URLData();
+          data.data = urlData;
+
+          let cartData = read_parameter(data, true)[1];
+          cart_items = cartData.split(",");
+        } else {
+          cart_items = ["false", "false", "false", "false", "false", "false", "false"];
+        }
+
+        // update cart button
+        let cart_button_text = document.getElementById("cart_button_text");
+
+        if (cart_items[4] == "true") {
+          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Remove';
+        } else {
+          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Add to cart';
+        }
+
+        // update links with cart data
+        let links = document.getElementsByTagName("a");
+        let index = 0;
+
+        for (index = 0; index < links.length; index++) {
+          update_link_with_cart(links[index], cartToURLData(cart_items));
+        }
+      }
+
+      function btnAddCart_OnClick() {
+        if (cart_items[4] == "true") {
+          cart_items[4] = "false";
+        } else {
+          cart_items[4] = "true";
+        }
+
+        // update cart button
+        let cart_button_text = document.getElementById("cart_button_text");
+
+        if (cart_items[4] == "true") {
+          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Remove';
+        } else {
+          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Add to cart';
+        }
+
+        // update links with cart data
+        let links = document.getElementsByTagName("a");
+        let index = 0;
+
+        for (index = 0; index < links.length; index++) {
+          update_link_with_cart(links[index], cartToURLData(cart_items));
+        }
+      }
+    </script>
+  </head>
+
+  <body onload="document_onload()">
+    <nav class="navbar">
+      <div class="non-links">
+        <div class="logonav">
+          <a href="../../index.html">
+            <img src="../../images/etnlogo_small.png" />
+          </a>
+        </div>
+
+        <div class="busname">
+          <p>
+            <span>Empowering</span>
+            <span>the</span>
+            <span>Nation</span>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <a href="#" class="toggle-button" id="toggle-btn">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <div class="nav-links-group">
+          <a class="main-category" href="../../index.html">Home</a>
+          <div class="dropdown main-category">
+            <a href="../../learnerships/learnerships.html">Learnerships</a>
+            <div class="dropdown-content">
+              <a href="../../learnerships/first-aid/first-aid.html">First Aid</a>
+              <a href="../../learnerships/sewing/sewing.html">Sewing</a>
+              <a href="../../learnerships/landscaping/landscaping.html">Landscaping</a>
+              <a href="../../learnerships/life-skills/life-skills.html">Life Skills</a>
+            </div>
+          </div>
+          <div class="dropdown main-category">
+            <a href="../short-courses.html">Short Courses</a>
+            <div class="dropdown-content">
+              <a href="../child-minding/child-minding.html">Child Minding</a>
+              <a href="../cooking/cooking.html">Cooking</a>
+              <a href="../garden-maintenance/garden-maintenance.html">Garden Maintenance</a>
+            </div>
+          </div>
+          <a class="main-category" href="../../bookings/bookings.html">Bookings</a>
+          <a class="main-category" href="../../contact/contact.html">Contact</a>
+        </div>
+      </div>
+    </nav>
+    <div class="main-course-content">
+      <a class="back" href="../short-courses.html">
+        <img class="backimg" src="../../images/backarrow.png" />
+        Back to Short Courses
+      </a>
+      <h1 class="short-courses-title">Child Minding</h1>
+      <div class="course-detail-image detail-cm"></div>
+      <h2 class="cost"><span>Cost: </span>R750</h2>
+      <p class="summary">This short course teaches basic child and baby care.</p>
+      <h3 class="learn">What you will learn:</h3>
+      <ul class="bullets">
+        <li>Birth to six-month-old baby needs</li>
+        <li>Seven-month to one-year-old needs</li>
+        <li>Toddler needs</li>
+        <li>Educational Toys</li>
+      </ul>
+      <div class="nav-btns">
+        <button class="next">
+          <a href="../cooking/cooking.html">Next Course<img src="../../images/chevron-right-white.png" alt="" /></a>
+        </button>
+      </div>
+      <div class="cart-button">
+        <button class="add-cart" id="cart-cm" onclick="btnAddCart_OnClick()">
+          <span id="cart_button_text"><img src="../../images/add-cart-white.png" alt="" />Add to cart</span>
+        </button>
+      </div>
+      <button type="button" class="button btn-to-bookings" style="margin-bottom: 2rem">
+        <a href="../../bookings/bookings.html"><img src="../../images/cart.png" /><span>Book Courses</span></a>
+      </button>
+    </div>
+
+    <script src="../../scripts/navbar.js"></script>
+  </body>
+</html>

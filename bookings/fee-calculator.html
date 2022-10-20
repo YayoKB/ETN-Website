@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <title>Fee Calculator</title>
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="shortcut icon" href="../../images/etnlogo_small.png" type="image/x-icon" />
+    <script src="../scripts/url_data.js"></script>
+    <script src="../scripts/cart.js"></script>
+    <script src="../scripts/invoice.js"></script>
+    <script type="text/javascript">
+      let totalPrice = 0;
+      let subtotal = 0;
+      let discountPrice = 0;
+      let vatPrice = 0;
+      let totalPayable = 0;
+
+      let nLearnerships = 0;
+      let nShortCourses = 0;
+      let totalLearnershipsPrice = 0;
+      let totalShortCoursesPrice = 0;
+
+      let cart_items = [];
+
+      function document_onload() {
+        if (url_contains_data(document.URL)) {
+          let urlData = document.URL.substring(document.URL.indexOf("?"));
+
+          let data = new URLData();
+          data.data = urlData;
+
+          let cartData = read_parameter(data, true)[1];
+          cart_items = cartData.split(",");
+
+          // update links with cart data
+          let links = document.getElementsByTagName("a");
+          let index = 0;
+
+          for (index = 0; index < links.length; index++) {
+            update_link_with_cart(links[index], cartToURLData(cart_items));
+          }
+
+          if (cart_items[0] == "true") {
+            nLearnerships++;
+          }
+          if (cart_items[1] == "true") {
+            nLearnerships++;
+          }
+          if (cart_items[2] == "true") {
+            nLearnerships++;
+          }
+          if (cart_items[3] == "true") {
+            nLearnerships++;
+          }
+          if (cart_items[4] == "true") {
+            nShortCourses++;
+          }
+          if (cart_items[5] == "true") {
+            nShortCourses++;
+          }
+          if (cart_items[6] == "true") {
+            nShortCourses++;
+          }
+
+          totalLearnershipsPrice = nLearnerships * 1500;
+          totalShortCoursesPrice = nShortCourses * 750;
+          totalPrice = totalLearnershipsPrice + totalShortCoursesPrice;
+
+          let courseCount = nLearnerships + nShortCourses;
+
+          if (courseCount == 2) {
+            discountPrice = totalPrice * 0.05;
+          }
+
+          if (courseCount == 3) {
+            discountPrice = totalPrice * 0.1;
+          }
+
+          if (courseCount > 3) {
+            discountPrice = totalPrice * 0.15;
+          }
+
+          subtotal = totalPrice - discountPrice;
+          vatPrice = subtotal * 0.15;
+          totalPayable = subtotal + vatPrice;
+
+          // display the booking details.
+          let bookingDetails = document.getElementById("BookingDetails");
+
+          let html = "";
+
+          html += "<div style='font-size:1.25rem; display:grid; row-gap: 1rem; margin-bottom: 1.5rem; margin-top: 2rem;'>";
+
+          html += "<div style='display: flex; justify-content: space-between'><span>Learnerships</span><span>x" + nLearnerships + "</span><span>R" + roundOff(totalLearnershipsPrice) + "</span></div>";
+          html +=
+            "<div style='display: flex; justify-content: space-between'><span>Short Courses</span><span>x" + nShortCourses + "</span><span>R" + roundOff(totalShortCoursesPrice) + "</span></div>";
+          html +=
+            "<div style='display: flex; justify-content: space-between; font-weight: bold; margin-top: 1rem; color: var(--color-limeade)'><span>DISCOUNT:</span><span>- R" +
+            roundOff(discountPrice) +
+            "</span></div>";
+          html += "<div style='display: flex; justify-content: space-between; font-weight: bold;'><span>SUBTOTAL:</span><span>R" + roundOff(subtotal) + "</span></div>";
+          html += "<div style='display: flex; justify-content: space-between'><span>VAT (15%):</span><span>R" + roundOff(vatPrice) + "</span></div>";
+          html += "<div style='display: flex; justify-content: space-between; font-weight: bold'><span>TOTAL PAYABLE:</span><span>R" + roundOff(totalPayable) + "</span></div>";
+
+          html += "</div";
+
+          bookingDetails.innerHTML = html;
+        }
+      }
+    </script>
+  </head>
+
+  <body onload="document_onload()">
+    <div class="fee-main-content">
+      <h1>Fee Calculator</h1>
+      <div id="BookingDetails"></div>
+      <p class="booking-desc">This is only a quoted fee and not a formal invoice.</p>
+      <button class="button back-to-book">
+        <a href="../bookings/bookings.html"><img src="../images/chevron-left-white.png" /><span>Back to Bookings</span></a>
+      </button>
+    </div>
+  </body>
+</html>

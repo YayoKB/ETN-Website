@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Confirmed!</title>
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="shortcut icon" href="../../images/etnlogo_small.png" type="image/x-icon" />
+    <script src="../scripts/jquery.min.js"></script>
+    <script src="../scripts/jspdf.min.js"></script>
+    <script src="../scripts/logo.js"></script>
+    <script src="../scripts/invoice.js"></script>
+    <script src="../scripts/url_data.js"></script>
+    <script src="../scripts/cart.js"></script>
+    <script type="text/javascript">
+      let invoice = new InvoiceDocument();
+      let dataReceived = false;
+
+      function document_onload() {
+        if (url_contains_data(document.URL)) {
+          let urlData = document.URL.substring(document.URL.indexOf("?"));
+
+          let data = new URLData();
+          data.data = urlData;
+
+          let cartData = read_parameter(data, false)[1];
+          let cart_items = cartData.split(",");
+
+          // update links with cart data
+          let links = document.getElementsByTagName("a");
+          let _index = 0;
+
+          for (_index = 0; _index < links.length; _index++) {
+            update_link_with_cart(links[_index], cartToURLData(cart_items));
+          }
+
+          invoice.firstName = decode(read_parameter(data, false)[1]);
+          invoice.lastName = decode(read_parameter(data, false)[1]);
+          invoice.phoneNumber = decode(read_parameter(data, false)[1]);
+          invoice.emailAddress = decode(read_parameter(data, false)[1]);
+          invoice.streetAddress = decode(read_parameter(data, false)[1]);
+          invoice.suburb = decode(read_parameter(data, false)[1]);
+          invoice.city = decode(read_parameter(data, false)[1]);
+          invoice.zipCode = decode(read_parameter(data, true)[1]);
+
+          let index = 0;
+
+          if (cart_items[0] == "true") {
+            invoice.courses[index] = COURSE_ID_FIRST_AID;
+            index++;
+          }
+
+          if (cart_items[1] == "true") {
+            invoice.courses[index] = COURSE_ID_SEWING;
+            index++;
+          }
+
+          if (cart_items[2] == "true") {
+            invoice.courses[index] = COURSE_ID_LANDSCAPING;
+            index++;
+          }
+
+          if (cart_items[3] == "true") {
+            invoice.courses[index] = COURSE_ID_LIFE_SKILLS;
+            index++;
+          }
+
+          if (cart_items[4] == "true") {
+            invoice.courses[index] = COURSE_ID_CHILD_MINDING;
+            index++;
+          }
+
+          if (cart_items[5] == "true") {
+            invoice.courses[index] = COURSE_ID_COOKING;
+            index++;
+          }
+
+          if (cart_items[6] == "true") {
+            invoice.courses[index] = COURSE_ID_GARDEN_MAINTENANCE;
+            index++;
+          }
+
+          let totalPrice = 0;
+
+          let index2 = 0;
+          for (index2 = 0; index2 < invoice.courses.length; index2++) {
+            switch (invoice.courses[index2]) {
+              case COURSE_ID_FIRST_AID:
+                totalPrice += 1500;
+                break;
+
+              case COURSE_ID_SEWING:
+                totalPrice += 1500;
+                break;
+
+              case COURSE_ID_LANDSCAPING:
+                totalPrice += 1500;
+                break;
+
+              case COURSE_ID_LIFE_SKILLS:
+                totalPrice += 1500;
+                break;
+
+              case COURSE_ID_CHILD_MINDING:
+                totalPrice += 750;
+                break;
+
+              case COURSE_ID_COOKING:
+                totalPrice += 750;
+                break;
+
+              case COURSE_ID_GARDEN_MAINTENANCE:
+                totalPrice += 750;
+                break;
+            }
+          }
+
+          if (invoice.courses.length == 2) {
+            invoice.discountPrice = totalPrice * 0.05;
+          }
+
+          if (invoice.courses.length == 3) {
+            invoice.discountPrice = totalPrice * 0.1;
+          }
+
+          if (invoice.courses.length > 3) {
+            invoice.discountPrice = totalPrice * 0.15;
+          }
+
+          invoice.subtotal = totalPrice - invoice.discountPrice;
+          invoice.vatPrice = invoice.subtotal * 0.15;
+          invoice.totalAmount = invoice.subtotal + invoice.vatPrice;
+
+          dataReceived = true;
+
+          // display the booking details.
+          let bookingDetails = document.getElementById("BookingDetails");
+          let html = "";
+
+          html += "<div style='font-size:1.25rem; display:grid; row-gap: 1rem; margin-bottom: 1.5rem'>";
+          html += "<div style='display: flex; justify-content: space-between; font-weight: bold'><span>Course Name</span><span>Cost</span></div>";
+
+          let index3 = 0;
+          for (index3 = 0; index3 < invoice.courses.length; index3++) {
+            switch (invoice.courses[index3]) {
+              case COURSE_ID_FIRST_AID:
+                html += "<div style='display: flex; justify-content: space-between'><span>First Aid</span><span>R1500.00</span></div>";
+                break;
+
+              case COURSE_ID_SEWING:
+                html += "<div style='display: flex; justify-content: space-between'><span>Sewing</span><span>R1500.00</span></div>";
+                break;
+
+              case COURSE_ID_LANDSCAPING:
+                html += "<div style='display: flex; justify-content: space-between'><span>Landscaping</span><span>R1500.00</span></div>";
+                break;
+
+              case COURSE_ID_LIFE_SKILLS:
+                html += "<div style='display: flex; justify-content: space-between'><span>Life Skills</span><span>R1500.00</span></div>";
+                break;
+
+              case COURSE_ID_CHILD_MINDING:
+                html += "<div style='display: flex; justify-content: space-between'><span>Child Minding</span><span>R750.00</span></div>";
+                break;
+
+              case COURSE_ID_COOKING:
+                html += "<div style='display: flex; justify-content: space-between'><span>Cooking</span><span>R750.00</span></div>";
+                break;
+
+              case COURSE_ID_GARDEN_MAINTENANCE:
+                html += "<div style='display: flex; justify-content: space-between'><span>Garden Maintenance</span><span>R750.00</span></div>";
+                break;
+            }
+          }
+
+          html +=
+            "<div style='display: flex; justify-content: space-between; font-weight: bold; margin-top: 1rem; color: var(--color-limeade)'><span>DISCOUNT:</span><span>- R" +
+            roundOff(invoice.discountPrice) +
+            "</span></div>";
+          html += "<div style='display: flex; justify-content: space-between; font-weight: bold'><span>SUBTOTAL:</span><span>R" + roundOff(invoice.subtotal) + "</span></div>";
+          html += "<div style='display: flex; justify-content: space-between'><span>VAT (15%):</span><span>R" + roundOff(invoice.vatPrice) + "</span></div>";
+          html += "<div style='display: flex; justify-content: space-between; font-weight: bold'><span>TOTAL:</span><span>R" + roundOff(invoice.totalAmount) + "</span></div>";
+
+          html += "</div>";
+
+          bookingDetails.innerHTML = html;
+
+          document.getElementById("RefNo").innerHTML = generateReferenceNumber(invoice.firstName, invoice.lastName);
+        }
+      }
+
+      function btnDownload_OnClick() {
+        if (dataReceived) {
+          downloadInvoice(invoice);
+        }
+      }
+
+      function generateReferenceNumber(firstName, lastName) {
+        let output = firstName[0] + lastName[0];
+
+        let k = 0;
+        for (k = 0; k < 5; k++) {
+          output += parseInt(Math.random() * 9);
+        }
+
+        return output;
+      }
+    </script>
+  </head>
+
+  <body onload="document_onload()">
+    <nav class="navbar">
+      <div class="non-links">
+        <div class="logonav">
+          <a href="../index.html">
+            <img src="../images/etnlogo_small.png" />
+          </a>
+        </div>
+
+        <div class="busname">
+          <p>
+            <span>Empowering</span>
+            <span>the</span>
+            <span>Nation</span>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <a href="#" class="toggle-button" id="toggle-btn">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <div class="nav-links-group">
+          <a class="main-category" href="../index.html">Home</a>
+          <div class="dropdown main-category">
+            <a href="../learnerships/learnerships.html">Learnerships</a>
+            <div class="dropdown-content">
+              <a href="../learnerships/first-aid/first-aid.html">First Aid</a>
+              <a href="../learnerships/sewing/sewing.html">Sewing</a>
+              <a href="../learnerships/landscaping/landscaping.html">Landscaping</a>
+              <a href="../learnerships/life-skills/life-skills.html">Life Skills</a>
+            </div>
+          </div>
+          <div class="dropdown main-category">
+            <a href="../short-courses/short-courses.html">Short Courses</a>
+            <div class="dropdown-content">
+              <a href="../short-courses/child-minding/child-minding.html">Child Minding</a>
+              <a href="../short-courses/cooking/cooking.html">Cooking</a>
+              <a href="../short-courses/garden-maintenance/garden-maintenance.html">Garden Maintenance</a>
+            </div>
+          </div>
+          <a class="main-category" href="../bookings/bookings.html">Bookings</a>
+          <a class="main-category" href="../contact/contact.html">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="booking-after-content">
+      <h1>Booking Confirmed!</h1>
+      <p class="booking-desc">Thank you for taking an interest in our courses. A consultant has received your details and will contact you soon to finalise the booking.</p>
+      <h2>Please find your booking details below:</h2>
+
+      <div id="BookingDetails"></div>
+      <div class="reference-details">
+        <p class="ref-no">Reference number:</p>
+        <p id="RefNo"></p>
+      </div>
+
+      <button class="button download" type="button" onclick="btnDownload_OnClick()"><img class="downloadimg" src="../images/download.png" />Download Invoice</button>
+
+      <img class="booking-logo" src="../images/etnlogo_small.png" />
+
+      <p class="quote">
+        "What you do today can improve all of your tomorrows."
+        <em>Ralph Marston</em>
+      </p>
+
+      <button class="button back-home">
+        <a href="../index.html"><img src="../images/home.png" alt="" /><span>Back to Home</span></a>
+      </button>
+    </div>
+    <script src="../../scripts/navbar.js"></script>
+  </body>
+</html>

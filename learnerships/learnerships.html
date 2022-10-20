@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learnerships</title>
+    <link rel="stylesheet" href="../css/global.css" />
+    <script src="../scripts/url_data.js"></script>
+    <script src="../scripts/cart.js"></script>
+    <script type="text/javascript">
+      function document_onload() {
+        if (url_contains_data(document.URL)) {
+          let cart_items = [];
+          let urlData = document.URL.substring(document.URL.indexOf("?"));
+
+          let data = new URLData();
+          data.data = urlData;
+
+          let cartData = read_parameter(data, true)[1];
+          cart_items = cartData.split(",");
+
+          // update links with cart data
+          let links = document.getElementsByTagName("a");
+          let index = 0;
+
+          for (index = 0; index < links.length; index++) {
+            update_link_with_cart(links[index], cartToURLData(cart_items));
+          }
+        }
+      }
+    </script>
+  </head>
+
+  <body onload="document_onload()">
+    <nav class="navbar">
+      <div class="non-links">
+        <div class="logonav">
+          <a href="../index.html">
+            <img src="../images/etnlogo_small.png" />
+          </a>
+        </div>
+
+        <div class="busname">
+          <p>
+            <span>Empowering</span>
+            <span>the</span>
+            <span>Nation</span>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <a href="#" class="toggle-button" id="toggle-btn">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <div class="nav-links-group">
+          <a class="main-category" href="../index.html">Home</a>
+          <div class="dropdown main-category">
+            <a href="learnerships.html">Learnerships</a>
+            <div class="dropdown-content">
+              <a href="first-aid/first-aid.html">First Aid</a>
+              <a href="sewing/sewing.html">Sewing</a>
+              <a href="landscaping/landscaping.html">Landscaping</a>
+              <a href="life-skills/life-skills.html">Life Skills</a>
+            </div>
+          </div>
+          <div class="dropdown main-category">
+            <a href="../short-courses/short-courses.html">Short Courses</a>
+            <div class="dropdown-content">
+              <a href="../short-courses/child-minding/child-minding.html">Child Minding</a>
+              <a href="../short-courses/cooking/cooking.html">Cooking</a>
+              <a href="../short-courses/garden-maintenance/garden-maintenance.html">Garden Maintenance</a>
+            </div>
+          </div>
+          <a class="main-category" href="../bookings/bookings.html">Bookings</a>
+          <a class="main-category" href="../contact/contact.html">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="learnerships-overview overview-main-content">
+      <h1>Learnerships</h1>
+      <ul>
+        <li>Our 6-month Learnerships take place over 12 weeks.</li>
+        <li>Click to view details about a course.</li>
+      </ul>
+      <div class="courses-group">
+        <a class="course course-fa" href="./first-aid/first-aid.html">
+          <div class="course-overlay l-overlay">
+            <h2 class="course-label">First Aid</h2>
+            <img class="arrow" src="../images/rightarrow.png" />
+          </div>
+        </a>
+        <a class="course course-sewing" href="./sewing/sewing.html">
+          <div class="course-overlay l-overlay">
+            <h2 class="course-label">Sewing</h2>
+            <img class="arrow" src="../images/rightarrow.png" />
+          </div>
+        </a>
+        <a class="course course-landscaping" href="./landscaping/landscaping.html">
+          <div class="course-overlay l-overlay">
+            <h2 class="course-label">Landscaping</h2>
+            <img class="arrow" src="../images/rightarrow.png" />
+          </div>
+        </a>
+        <a class="course course-ls" href="./life-skills/life-skills.html">
+          <div class="course-overlay l-overlay">
+            <h2 class="course-label">Life Skills</h2>
+            <img class="arrow" src="../images/rightarrow.png" />
+          </div>
+        </a>
+      </div>
+      <button type="button" class="button btn-short-courses">
+        <a href="../short-courses/short-courses.html"><img src="../images/book.png" /> <span>Short Courses</span></a>
+      </button>
+    </div>
+
+    <script src="../scripts/navbar.js"></script>
+  </body>
+</html>

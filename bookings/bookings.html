@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookings</title>
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="shortcut icon" href="../../images/etnlogo_small.png" type="image/x-icon" />
+    <script src="../scripts/url_data.js"></script>
+    <script src="../scripts/cart.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css"
+      integrity="sha512-uj2QCZdpo8PSbRGL/g5mXek6HM/APd7k/B5Hx/rkVFPNOxAQMXD+t+bG4Zv8OAdUpydZTU3UHmyjjiHv2Ww0PA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script type="text/javascript">
+      let cart_items = [];
+
+      let cb_firstaid;
+      let cb_sewing;
+      let cb_lscaping;
+      let cp_lskills;
+      let cb_cminding;
+      let cb_cooking;
+      let cb_gmaintain;
+
+      function document_onload() {
+        cb_firstaid = document.getElementById("firstaid");
+        cb_sewing = document.getElementById("sewing");
+        cb_lscaping = document.getElementById("lscaping");
+        cb_lskills = document.getElementById("lskills");
+        cb_cminding = document.getElementById("cminding");
+        cb_cooking = document.getElementById("cooking");
+        cb_gmaintain = document.getElementById("gmaintain");
+
+        if (url_contains_data(document.URL)) {
+          let urlData = document.URL.substring(document.URL.indexOf("?"));
+
+          let data = new URLData();
+          data.data = urlData;
+
+          let cartData = read_parameter(data, true)[1];
+          cart_items = cartData.split(",");
+
+          if (cart_items[0] == "true") {
+            cb_firstaid.checked = true;
+          }
+
+          if (cart_items[1] == "true") {
+            cb_sewing.checked = true;
+          }
+
+          if (cart_items[2] == "true") {
+            cb_lscaping.checked = true;
+          }
+
+          if (cart_items[3] == "true") {
+            cb_lskills.checked = true;
+          }
+
+          if (cart_items[4] == "true") {
+            cb_cminding.checked = "true";
+          }
+
+          if (cart_items[5] == "true") {
+            cb_cooking.checked = true;
+          }
+
+          if (cart_items[6] == "true") {
+            cb_gmaintain.checked = true;
+          }
+        } else {
+          cart_items = ["false", "false", "false", "false", "false", "false", "false"];
+        }
+
+        // update links with cart data
+        let links = document.getElementsByTagName("a");
+        let index = 0;
+
+        for (index = 0; index < links.length; index++) {
+          update_link_with_cart(links[index], cartToURLData(cart_items));
+        }
+      }
+
+      function btnRequest_OnClick() {
+        let edt_fname = document.getElementById("fname");
+        let edt_lname = document.getElementById("lname");
+        let edt_phoneNumber = document.getElementById("pnumber");
+        let edt_email = document.getElementById("email");
+        let edt_strname = document.getElementById("strname");
+        let edt_suburb = document.getElementById("suburb");
+        let edt_city = document.getElementById("city");
+        let edt_zip = document.getElementById("zip");
+
+        if (
+          edt_fname.value != "" &&
+          edt_lname.value != "" &&
+          edt_phoneNumber.value != "" &&
+          edt_email.value != "" &&
+          edt_strname.value != "" &&
+          edt_suburb.value != "" &&
+          edt_city.value != "" &&
+          edt_zip.value != ""
+        ) {
+          if (edt_email.value.includes("@")) {
+            let data = new URLData();
+
+            write_parameter(data, ["cart", cartToURLData(cart_items)], true);
+            write_parameter(data, ["fname", encode(edt_fname.value)], false);
+            write_parameter(data, ["lname", encode(edt_lname.value)], false);
+
+            document.location = "consultant.html" + data.data;
+          } else {
+            alert("Invalid email address. The email address must contain the symbol '@'.");
+          }
+        } else {
+          alert("Complete the form to continue!");
+        }
+      }
+
+      function btnCalculate_OnClick() {
+        if (cb_firstaid.checked || cb_sewing.checked || cb_lscaping.checked || cb_lskills.checked || cb_cminding.checked || cb_cooking.checked || cb_gmaintain.checked) {
+          document.location = "fee-calculator.html?cart=" + cartToURLData(cart_items);
+        } else {
+          alert("Select at least one course to view the fee calculator!");
+        }
+      }
+
+      function btnConfirm_OnClick() {
+        let edt_fname = document.getElementById("fname");
+        let edt_lname = document.getElementById("lname");
+        let edt_phoneNumber = document.getElementById("pnumber");
+        let edt_email = document.getElementById("email");
+        let edt_strname = document.getElementById("strname");
+        let edt_suburb = document.getElementById("suburb");
+        let edt_city = document.getElementById("city");
+        let edt_zip = document.getElementById("zip");
+
+        if (
+          edt_fname.value != "" &&
+          edt_lname.value != "" &&
+          edt_phoneNumber.value != "" &&
+          edt_email.value != "" &&
+          edt_strname.value != "" &&
+          edt_suburb.value != "" &&
+          edt_city.value != "" &&
+          edt_zip.value != "" &&
+          (cb_firstaid.checked || cb_sewing.checked || cb_lscaping.checked || cb_lskills.checked || cb_cminding.checked || cb_cooking.checked || cb_gmaintain.checked)
+        ) {
+          if (edt_email.value.includes("@")) {
+            let data = new URLData();
+
+            write_parameter(data, ["cart", cartToURLData(cart_items)], true);
+            write_parameter(data, ["fname", encode(edt_fname.value)], false);
+            write_parameter(data, ["lname", encode(edt_lname.value)], false);
+            write_parameter(data, ["pnumber", encode(edt_phoneNumber.value)], false);
+            write_parameter(data, ["email", encode(edt_email.value)], false);
+            write_parameter(data, ["strname", encode(edt_strname.value)], false);
+            write_parameter(data, ["suburb", encode(edt_suburb.value)], false);
+            write_parameter(data, ["city", encode(edt_city.value)], false);
+            write_parameter(data, ["zip", encode(edt_zip.value)], false);
+
+            document.location = "confirm.html" + data.data;
+          } else {
+            alert("Invalid email address. The email address must contain the symbol '@'.");
+          }
+        } else {
+          alert("Complete the form to continue!");
+        }
+      }
+
+      function updateLinks() {
+        // update links with cart data
+        let links = document.getElementsByTagName("a");
+        let index = 0;
+
+        for (index = 0; index < links.length; index++) {
+          update_link_with_cart(links[index], cartToURLData(cart_items));
+        }
+      }
+
+      function cbFirstAid_OnClick() {
+        if (cb_firstaid.checked) {
+          cart_items[0] = "true";
+        } else {
+          cart_items[0] = "false";
+        }
+        updateLinks();
+      }
+      function cbSewing_OnClick() {
+        if (cb_sewing.checked) {
+          cart_items[1] = "true";
+        } else {
+          cart_items[1] = "false";
+        }
+        updateLinks();
+      }
+      function cbLandscaping_OnClick() {
+        if (cb_lscaping.checked) {
+          cart_items[2] = "true";
+        } else {
+          cart_items[2] = "false";
+        }
+        updateLinks();
+      }
+      function cbLifeSkills_OnClick() {
+        if (cb_lskills.checked) {
+          cart_items[3] = "true";
+        } else {
+          cart_items[3] = "false";
+        }
+        updateLinks();
+      }
+      function cbChildMinding_OnClick() {
+        if (cb_cminding.checked) {
+          cart_items[4] = "true";
+        } else {
+          cart_items[4] = "false";
+        }
+        updateLinks();
+      }
+      function cbCooking_OnClick() {
+        if (cb_cooking.checked) {
+          cart_items[5] = "true";
+        } else {
+          cart_items[5] = "false";
+        }
+        updateLinks();
+      }
+      function cbGardenMaintenance_OnClick() {
+        if (cb_gmaintain.checked) {
+          cart_items[6] = "true";
+        } else {
+          cart_items[6] = "false";
+        }
+        updateLinks();
+      }
+    </script>
+  </head>
+
+  <body onload="document_onload()">
+    <nav class="navbar">
+      <div class="non-links">
+        <div class="logonav">
+          <a href="../index.html">
+            <img src="../images/etnlogo_small.png" />
+          </a>
+        </div>
+
+        <div class="busname">
+          <p>
+            <span>Empowering</span>
+            <span>the</span>
+            <span>Nation</span>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <a href="#" class="toggle-button" id="toggle-btn">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <div class="nav-links-group">
+          <a class="main-category" href="../index.html">Home</a>
+          <div class="dropdown main-category">
+            <a href="../learnerships/learnerships.html">Learnerships</a>
+            <div class="dropdown-content">
+              <a href="../learnerships/first-aid/first-aid.html">First Aid</a>
+              <a href="../learnerships/sewing/sewing.html">Sewing</a>
+              <a href="../learnerships/landscaping/landscaping.html">Landscaping</a>
+              <a href="../learnerships/life-skills/life-skills.html">Life Skills</a>
+            </div>
+          </div>
+          <div class="dropdown main-category">
+            <a href="../short-courses/short-courses.html">Short Courses</a>
+            <div class="dropdown-content">
+              <a href="../short-courses/child-minding/child-minding.html">Child Minding</a>
+              <a href="../short-courses/cooking/cooking.html">Cooking</a>
+              <a href="../short-courses/garden-maintenance/garden-maintenance.html">Garden Maintenance</a>
+            </div>
+          </div>
+          <a class="main-category" href="../bookings/bookings.html">Bookings</a>
+          <a class="main-category" href="../contact/contact.html">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="booking-main-content">
+      <h1>Book Our Courses</h1>
+      <p class="booking-desc">Please enter your details below and any courses you would like to take. You may make use of the calculator button below to provide you with your quote.</p>
+      <h2>We have discounts available:</h2>
+      <ul>
+        <li>2 Courses - 5% off</li>
+        <li>3 Courses - 10% off</li>
+        <li>More than 3 Courses - 15% off</li>
+      </ul>
+      <div class="inputs">
+        <div class="container1">
+          <form>
+            <div class="input">
+              <label for="fname">First Name:</label>
+              <input placeholder="Type your first name here..." type="text" id="fname" name="fname" />
+            </div>
+            <div class="input">
+              <label for="pnumber">Phone Number:</label>
+              <input placeholder="Type your phone number here..." type="text" id="pnumber" name="pnumber" />
+            </div>
+            <div class="input">
+              <label for="strname">Street Name:</label>
+              <input placeholder="Type your street address here..." type="text" id="strname" name="strname" />
+            </div>
+            <div class="input">
+              <label for="city">City:</label>
+              <input placeholder="Type your city here..." type="text" id="city" name="city" />
+            </div>
+          </form>
+        </div>
+        <div class="container2">
+          <form>
+            <div class="input">
+              <label for="lname">Last Name:</label>
+              <input placeholder="Type your last name here..." type="text" id="lname" name="lname" />
+            </div>
+            <div class="input">
+              <label for="email">Email Address:</label>
+              <input placeholder="Type your email address here..." type="email" id="email" name="email" />
+            </div>
+            <div class="input">
+              <label for="suburb">Suburb:</label>
+              <input placeholder="Type your suburb name here..." type="text" id="suburb" name="suburb" />
+            </div>
+            <div class="input">
+              <label for="zip">ZIP/Postal Code:</label>
+              <input placeholder="Type your ZIP/Postal code here..." type="text" id="zip" name="zip" />
+            </div>
+          </form>
+        </div>
+        <h3>Select the courses you wish to take:</h3>
+        <div class="container3">
+          <form>
+            <div class="course-check">
+              <input type="checkbox" id="firstaid" name="firstaid" value="First Aid" onclick="cbFirstAid_OnClick()" />
+              <label for="firstaid"><span class="course-name">First Aid</span><span class="course-price">R1500</span></label>
+            </div>
+            <div class="course-check">
+              <input type="checkbox" id="sewing" name="sewing" value="sewing" onclick="cbSewing_OnClick()" />
+              <label for="sewing"><span class="course-name">Sewing</span> <span class="course-price">R1500</span></label>
+            </div>
+            <div class="course-check">
+              <input type="checkbox" id="lscaping" name="lscaping" value="Land Scaping" onclick="cbLandscaping_OnClick()" />
+              <label for="lscaping"><span class="course-name">Landscaping</span><span class="course-price">R1500</span></label>
+            </div>
+            <div class="course-check">
+              <input type="checkbox" id="lskills" name="lskills" value="Life Skills" onclick="cbLifeSkills_OnClick()" />
+              <label for="lskills"><span class="course-name">Life Skills</span><span class="course-price">R1500</span></label>
+            </div>
+          </form>
+        </div>
+        <div class="container4">
+          <form>
+            <div class="course-check">
+              <input type="checkbox" id="cminding" name="cminding" value="Child Minding" onclick="cbChildMinding_OnClick()" />
+              <label for="cminding"><span class="course-name">Child Minding</span><span class="course-price">R750</span></label>
+            </div>
+            <div class="course-check">
+              <input type="checkbox" id="cooking" name="cooking" value="Cooking" onclick="cbCooking_OnClick()" />
+              <label for="cooking"><span class="course-name">Cooking</span><span class="course-price">R750</span></label>
+            </div>
+            <div class="course-check">
+              <input type="checkbox" id="gmaintain" name="gmaintain" value="Garden Maintenance" onclick="cbGardenMaintenance_OnClick()" />
+              <label for="gmaintain"><span class="course-name">Garden Maintenance</span><span class="course-price">R750</span></label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="booking-buttons">
+        <button class="button request" type="button" onclick="btnRequest_OnClick()"><img src="../images/consult.png" />Request Consultant</button>
+        <button class="button cal" type="button" onclick="btnCalculate_OnClick()"><img src="../images/calculate.png" /> Calculate Total Fees</button>
+        <button class="button book" type="button" onclick="btnConfirm_OnClick()"><img src="../images/check.png" /> Confirm Booking</button>
+      </div>
+    </div>
+
+    <script src="../scripts/navbar.js"></script>
+  </body>
+</html>

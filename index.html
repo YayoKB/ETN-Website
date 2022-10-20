@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Empowering the Nation</title>
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="shortcut icon" href="./images/etnlogo_small.png" type="image/x-icon" />
+    <style></style>
+    <script src="scripts/url_data.js"></script>
+    <script src="scripts/cart.js"></script>
+    <script type="text/javascript">
+
+      function document_onload()
+      {
+        if(url_contains_data(document.URL))
+        {
+          let cart_items = [];
+          let urlData = document.URL.substring(document.URL.indexOf("?"));
+
+          let data = new URLData();
+          data.data = urlData;
+
+          let cartData = read_parameter(data, true)[1];
+          cart_items = cartData.split(",");
+
+          // update links with cart data
+          let links = document.getElementsByTagName("a");
+          let index = 0;
+
+          for(index = 0; index < links.length; index++)
+          {
+            update_link_with_cart(links[index], cartToURLData(cart_items));
+          }
+        }
+      }
+
+    </script>
+  </head>
+
+  <body onload="document_onload()">
+    <nav class="navbar">
+      <div class="non-links">
+        <div class="logonav">
+          <a href="./index.html">
+            <img src="images/etnlogo_small.png" />
+          </a>
+        </div>
+
+        <div class="busname">
+          <p>
+            <span>Empowering</span>
+            <span>the</span>
+            <span>Nation</span>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <a href="#" class="toggle-button" id="toggle-btn">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <div class="nav-links-group">
+          <a class="main-category" href="./index.html">Home</a>
+          <div class="dropdown main-category">
+            <a href="./learnerships/learnerships.html">Learnerships</a>
+            <div class="dropdown-content">
+              <a href="./learnerships/first-aid/first-aid.html">First Aid</a>
+              <a href="./learnerships/sewing/sewing.html">Sewing</a>
+              <a href="./learnerships/landscaping/landscaping.html">Landscaping</a>
+              <a href="./learnerships/life-skills/life-skills.html">Life Skills</a>
+            </div>
+          </div>
+          <div class="dropdown main-category">
+            <a href="./short-courses/short-courses.html">Short Courses</a>
+            <div class="dropdown-content">
+              <a href="./short-courses/child-minding/child-minding.html">Child Minding</a>
+              <a href="./short-courses/cooking/cooking.html">Cooking</a>
+              <a href="./short-courses/garden-maintenance/garden-maintenance.html">Garden Maintenance</a>
+            </div>
+          </div>
+          <a class="main-category" href="./bookings/bookings.html">Bookings</a>
+          <a class="main-category" href="./contact/contact.html">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="landing-content">
+      <div class="background"></div>
+
+      <div class="text-content">
+        <div>
+          <h1><span class="slogan-first">Grow</span> your skills,</h1>
+          <h2>
+            <span class="slogan" style="color: var(--color-limeade)">Empower</span>
+            <span class="slogan" style="color: var(--color-acid-green)">the</span>
+            <span class="slogan" style="color: var(--color-goldenrod)">Nation</span>
+          </h2>
+        </div>
+        <p class="compsum">
+          <i>Empowering the Nation</i> was established in 2018 and offers courses in Johannesburg. Hundreds of domestic workers and gardeners have been trained on both the six-month long Learnerships
+          and six-week Short Skills Training Programmes to empower themselves and to provide more marketable skills.
+        </p>
+        <button class="btn-get-started">
+          <a href="./learnerships/learnerships.html"><img class="btn-icon" src="./images/smile.png" />Get Started</a>
+        </button>
+        <div class="landing-logo">
+          <img src="./images/etnlogo_small.png" alt="Empowering the Nation Logo" />
+        </div>
+      </div>
+    </section>
+
+    <script src="./scripts/navbar.js"></script>
+  </body>
+</html>

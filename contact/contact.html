@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact</title>
+    <link rel="stylesheet" href="../css/global.css" />
+    <script src="../scripts/url_data.js"></script>
+    <script src="../scripts/cart.js"></script>
+    <script type="text/javascript">
+
+      function document_onload()
+      {
+        if(url_contains_data(document.URL))
+        {
+          let cart_items = [];
+          let urlData = document.URL.substring(document.URL.indexOf("?"));
+
+          let data = new URLData();
+          data.data = urlData;
+
+          let cartData = read_parameter(data, true)[1];
+          cart_items = cartData.split(",");
+
+          // update links with cart data
+          let links = document.getElementsByTagName("a");
+          let index = 0;
+
+          for(index = 0; index < links.length; index++)
+          {
+            update_link_with_cart(links[index], cartToURLData(cart_items));
+          }
+        }
+      }
+
+    </script>
+  </head>
+
+  <body onload="document_onload()">
+    <nav class="navbar">
+      <div class="non-links">
+        <div class="logonav">
+          <a href="../index.html">
+            <img src="../images/etnlogo_small.png" />
+          </a>
+        </div>
+
+        <div class="busname">
+          <p>
+            <span>Empowering</span>
+            <span>the</span>
+            <span>Nation</span>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <a href="#" class="toggle-button" id="toggle-btn">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <div class="nav-links-group">
+          <a class="main-category" href="../index.html">Home</a>
+          <div class="dropdown main-category">
+            <a href="../learnerships/learnerships.html">Learnerships</a>
+            <div class="dropdown-content">
+              <a href="../learnerships/first-aid/first-aid.html">First Aid</a>
+              <a href="../learnerships/sewing/sewing.html">Sewing</a>
+              <a href="../learnerships/landscaping/landscaping.html">Landscaping</a>
+              <a href="../learnerships/life-skills/life-skills.html">Life Skills</a>
+            </div>
+          </div>
+          <div class="dropdown main-category">
+            <a href="../short-courses/short-courses.html">Short Courses</a>
+            <div class="dropdown-content">
+              <a href="../short-courses/child-minding/child-minding.html">Child Minding</a>
+              <a href="../short-courses/cooking/cooking.html">Cooking</a>
+              <a href="../short-courses/garden-maintenance/garden-maintenance.html">Garden Maintenance</a>
+            </div>
+          </div>
+          <a class="main-category" href="../bookings/bookings.html">Bookings</a>
+          <a class="main-category" href="../contact/contact.html">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="contact-main-content">
+      <h1>Contact Details</h1>
+      <h2>Phone Number:</h2>
+      <p>021 713 4983</p>
+      <h2>Email Address:</h2>
+      <p>contact@etn.co.za</p>
+      <div class="maps">
+        <div class="map">
+          <h3 class="kensington">Kensington Office</h3>
+          <p>63 Roberts Avenue, Kensington, Johannesburg, 2101</p>
+
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3579.9351428996!2d28.0835306!3d-26.198788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950e722ef55b7d%3A0xa4b671a7f77b9f80!2s63%20Roberts%20Ave%2C%20Kensington%2C%20Johannesburg%2C%202101%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1664877084557!5m2!1sen!2sus"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <div class="map">
+          <h3 class="parktown">Parktown Office</h3>
+          <p>6 Victoria Avenue, Parktown, Johannesburg, 2193</p>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3581.552881182237!2d28.109449315427515!3d-26.146117683463718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950d80ac3fd8d7%3A0xb8e3f7868521ac77!2s6%20Victoria%20Ave%2C%20Sandringham%2C%20Johannesburg%2C%202192%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1664877250399!5m2!1sen!2sus"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <div class="map mayfair">
+          <h3>Mayfair Office</h3>
+          <p>102 Central Road, Mayfair, Johannesburg, 2108</p>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3579.760498608898!2d28.010427515428667!3d-26.20446818343766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950bfde2d464ad%3A0xd674cd7b757234f6!2s102%20Central%20Rd%2C%20Mayfair%2C%20Johannesburg%2C%202108%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1664877401348!5m2!1sen!2sus"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+      <button class="button back-home">
+        <a href="../index.html"><img src="../images/home.png" alt="" /> Back to Home</a>
+      </button>
+    </div>
+    <script src="../scripts/navbar.js"></script>
+  </body>
+</html>

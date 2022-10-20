@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consultation</title>
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="shortcut icon" href="../../images/etnlogo_small.png" type="image/x-icon" />
+    <script src="../scripts/url_data.js"></script>
+    <script src="../scripts/cart.js"></script>
+    <script type="text/javascript">
+      function document_onload() {
+        if (url_contains_data(document.URL)) {
+          let urlData = document.URL.substring(document.URL.indexOf("?"));
+
+          let data = new URLData();
+          data.data = urlData;
+
+          let cartData = read_parameter(data, false)[1];
+          let cart_items = cartData.split(",");
+
+          // update links with cart data
+          let links = document.getElementsByTagName("a");
+          let _index = 0;
+
+          for (_index = 0; _index < links.length; _index++) {
+            update_link_with_cart(links[_index], cartToURLData(cart_items));
+          }
+
+          let firstName = decode(read_parameter(data, false)[1]);
+          let lastName = decode(read_parameter(data, true)[1]);
+
+          // display the booking details.
+          let consultDetails = document.getElementById("ConsultDetails");
+          let html = "";
+
+          if (cart_items[0] == "true") {
+            html += "<p>First Aid</p><br />";
+          }
+
+          if (cart_items[1] == "true") {
+            html += "<p>Sewing</p><br />";
+          }
+
+          if (cart_items[2] == "true") {
+            html += "<p>Landscaping</p><br />";
+          }
+
+          if (cart_items[3] == "true") {
+            html += "<p>Life Skills</p><br />";
+          }
+
+          if (cart_items[4] == "true") {
+            html += "<p>Child Minding</p><br />";
+          }
+
+          if (cart_items[5] == "true") {
+            html += "<p>Cooking</p><br />";
+          }
+
+          if (cart_items[6] == "true") {
+            html += "<p>Garden Maintenance</p><br />";
+          }
+
+          consultDetails.innerHTML = html;
+
+          document.getElementById("RefNo").innerHTML = generateReferenceNumber(firstName, lastName);
+        }
+      }
+
+      function generateReferenceNumber(firstName, lastName) {
+        let output = firstName[0] + lastName[0];
+
+        let k = 0;
+        for (k = 0; k < 5; k++) {
+          output += parseInt(Math.random() * 9);
+        }
+
+        return output;
+      }
+    </script>
+  </head>
+  <body onload="document_onload()">
+    <nav class="navbar">
+      <div class="non-links">
+        <div class="logonav">
+          <a href="../index.html">
+            <img src="../images/etnlogo_small.png" />
+          </a>
+        </div>
+
+        <div class="busname">
+          <p>
+            <span>Empowering</span>
+            <span>the</span>
+            <span>Nation</span>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <a href="#" class="toggle-button" id="toggle-btn">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <div class="nav-links-group">
+          <a class="main-category" href="../index.html">Home</a>
+          <div class="dropdown main-category">
+            <a href="../learnerships/learnerships.html">Learnerships</a>
+            <div class="dropdown-content">
+              <a href="../learnerships/first-aid/first-aid.html">First Aid</a>
+              <a href="../learnerships/sewing/sewing.html">Sewing</a>
+              <a href="../learnerships/landscaping/landscaping.html">Landscaping</a>
+              <a href="../learnerships/life-skills/life-skills.html">Life Skills</a>
+            </div>
+          </div>
+          <div class="dropdown main-category">
+            <a href="../short-courses/short-courses.html">Short Courses</a>
+            <div class="dropdown-content">
+              <a href="../short-courses/child-minding/child-minding.html">Child Minding</a>
+              <a href="../short-courses/cooking/cooking.html">Cooking</a>
+              <a href="../short-courses/garden-maintenance/garden-maintenance.html">Garden Maintenance</a>
+            </div>
+          </div>
+          <a class="main-category" href="../bookings/bookings.html">Bookings</a>
+          <a class="main-category" href="../contact/contact.html">Contact</a>
+        </div>
+      </div>
+    </nav>
+    <div class="booking-after-content">
+      <h1>Details Received!</h1>
+      <p class="booking-desc">Thank you for taking an interest in our courses. A consultant has received your details and will contact you soon!</p>
+      <h2>Please find your selected courses and reference number below:</h2>
+      <div id="ConsultDetails" style="font-size: 20px"></div>
+      <div class="reference-details">
+        <p class="ref-no">Reference number:</p>
+        <p id="RefNo"></p>
+      </div>
+      <img class="booking-logo" src="../images/etnlogo_small.png" />
+      <p class="quote">
+        "What you do today can improve all of your tomorrows."<br />
+        <em>Ralph Marston</em>
+      </p>
+      <button class="button back-home">
+        <a href="../index.html"><img src="../images/home.png" alt="" /><span>Back to Home</span></a>
+      </button>
+    </div>
+    <script src="../../scripts/navbar.js"></script>
+  </body>
+</html>
