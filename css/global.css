@@ -402,17 +402,6 @@ button:hover a {
   width: 15%;
 }
 
-.button {
-  width: 100%;
-  max-width: 18.75rem;
-  height: 3.75rem;
-  border: none;
-  border-radius: 50px;
-  margin: 2.5rem auto;
-  font-family: "Inter", sans-serif;
-  cursor: pointer;
-}
-
 .btn-short-courses {
   background-color: var(--color-american-yellow);
 }
@@ -427,6 +416,17 @@ button:hover a {
 
 .btn-to-bookings a {
   color: var(--color-jet);
+}
+
+.button {
+  width: 100%;
+  max-width: 18.75rem;
+  height: 3.75rem;
+  border: none;
+  border-radius: 50px;
+  margin: 2.5rem auto;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
 }
 
 .button a {
