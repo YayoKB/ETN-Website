@@ -27,11 +27,14 @@
 
         // update cart button
         let cart_button_text = document.getElementById("cart_button_text");
+        let cart_button = document.getElementById("cart-cm");
 
         if (cart_items[4] == "true") {
-          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Remove';
+          cart_button_text.innerHTML = "Remove";
+          cart_button.style.backgroundColor = "var(--color-army-green)";
         } else {
-          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Add to cart';
+          cart_button_text.innerHTML = "Add to cart";
+          cart_button.style.backgroundColor = "var(--color-limeade)";
         }
 
         // update links with cart data
@@ -52,11 +55,14 @@
 
         // update cart button
         let cart_button_text = document.getElementById("cart_button_text");
+        let cart_button = document.getElementById("cart-cm");
 
         if (cart_items[4] == "true") {
-          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Remove';
+          cart_button_text.innerHTML = "Remove";
+          cart_button.style.backgroundColor = "var(--color-army-green)";
         } else {
-          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Add to cart';
+          cart_button_text.innerHTML = "Add to cart";
+          cart_button.style.backgroundColor = "var(--color-limeade)";
         }
 
         // update links with cart data
@@ -131,25 +137,22 @@
       <h2 class="cost"><span>Cost: </span>R750</h2>
       <p class="summary">This short course teaches basic child and baby care.</p>
       <h3 class="learn">What you will learn:</h3>
-      <ul class="bullets">
-        <li>Birth to six-month-old baby needs</li>
-        <li>Seven-month to one-year-old needs</li>
-        <li>Toddler needs</li>
-        <li>Educational Toys</li>
-      </ul>
+      <div class="bullets">
+        <ul>
+          <li>Birth to six-month-old baby needs</li>
+          <li>Seven-month to one-year-old needs</li>
+          <li>Toddler needs</li>
+          <li>Educational Toys</li>
+        </ul>
+      </div>
+
       <div class="nav-btns">
-        <button class="next">
-          <a href="../cooking/cooking.html">Next Course<img src="../../images/chevron-right-white.png" alt="" /></a>
-        </button>
+        <a href="../cooking/cooking.html" class="button"><span>Next</span><img src="../../images/chevron-right-white.png" alt="" /></a>
       </div>
-      <div class="cart-button">
-        <button class="add-cart" id="cart-cm" onclick="btnAddCart_OnClick()">
-          <span id="cart_button_text"><img src="../../images/add-cart-white.png" alt="" />Add to cart</span>
-        </button>
-      </div>
-      <button type="button" class="button btn-to-bookings" style="margin-bottom: 2rem">
-        <a href="../../bookings/bookings.html"><img src="../../images/cart.png" /><span>Book Courses</span></a>
-      </button>
+
+      <button class="add-cart" id="cart-cm" onclick="btnAddCart_OnClick()"><img src="../../images/add-cart-white.png" alt="" /><span id="cart_button_text">Add to cart</span></button>
+
+      <a href="../../bookings/bookings.html" class="button btn-to-bookings"><img src="../../images/cart.png" /><span>Book Courses</span></a>
     </div>
 
     <script src="../../scripts/navbar.js"></script>

@@ -91,7 +91,11 @@
 
           html += "<div style='display: flex; justify-content: space-between'><span>Learnerships</span><span>x" + nLearnerships + "</span><span>R" + roundOff(totalLearnershipsPrice) + "</span></div>";
           html +=
-            "<div style='display: flex; justify-content: space-between'><span>Short Courses</span><span>x" + nShortCourses + "</span><span>R" + roundOff(totalShortCoursesPrice) + "</span></div>";
+            "<div style='display: flex; justify-content: space-between'><span>Short Courses</span><span style=>x" +
+            nShortCourses +
+            "</span><span>R" +
+            roundOff(totalShortCoursesPrice) +
+            "</span></div>";
           html +=
             "<div style='display: flex; justify-content: space-between; font-weight: bold; margin-top: 1rem; color: var(--color-limeade)'><span>DISCOUNT:</span><span>- R" +
             roundOff(discountPrice) +
@@ -113,9 +117,7 @@
       <h1>Fee Calculator</h1>
       <div id="BookingDetails"></div>
       <p class="booking-desc">This is only a quoted fee and not a formal invoice.</p>
-      <button class="button back-to-book">
-        <a href="../bookings/bookings.html"><img src="../images/chevron-left-white.png" /><span>Back to Bookings</span></a>
-      </button>
+      <a href="../bookings/bookings.html" class="button back-to-book"><img src="../images/chevron-left-white.png" /><span>Back to Bookings</span></a>
     </div>
   </body>
 </html>

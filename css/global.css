@@ -56,21 +56,34 @@ a {
   text-decoration: none;
 }
 
-button {
-  line-height: 0;
-  font-size: var(--text-size-mobile-medium-large);
-  font-weight: var(--font-weight-bold);
-}
-
-button a {
-  text-decoration: none;
+.button {
+  width: 100%;
+  max-width: 18.75rem;
+  height: 3.75rem;
+  border: none;
+  border-radius: 50px;
+  margin: 2.5rem auto;
   font-family: "Inter", sans-serif;
   font-size: var(--text-size-mobile-medium-large);
   font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  display: flex;
+  padding-inline: 1.5rem;
+  align-items: center;
   transition: scale 300ms;
 }
 
-button:hover a {
+.button span {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.button img {
+  height: 2.1875rem;
+  transition: scale 300ms;
+}
+
+.button:hover {
   scale: 1.05;
 }
 
@@ -264,6 +277,7 @@ button:hover a {
   border-radius: 2.5rem;
   border: none;
   background-color: var(--color-acid-green);
+  color: var(--color-jet);
 }
 
 .btn-get-started a {
@@ -404,55 +418,18 @@ button:hover a {
 
 .btn-short-courses {
   background-color: var(--color-american-yellow);
-}
-
-.btn-short-courses a {
   color: var(--color-jet);
 }
 
 .btn-to-bookings {
   background-color: var(--color-acid-green);
-}
-
-.btn-to-bookings a {
   color: var(--color-jet);
-}
-
-.button {
-  width: 100%;
-  max-width: 18.75rem;
-  height: 3.75rem;
-  border: none;
-  border-radius: 50px;
-  margin: 2.5rem auto;
-  font-family: "Inter", sans-serif;
-  cursor: pointer;
-}
-
-.button a {
-  display: flex;
-  padding-inline: 1.5rem;
-  align-items: center;
-  transition: scale 300ms;
-}
-
-.button a span {
-  flex-grow: 1;
-}
-
-.button img {
-  height: 2.1875rem;
-  transition: scale 300ms;
-}
-
-.button:hover a {
-  scale: 1.05;
 }
 
 /* COURSE DETAILS */
 
 .main-course-content {
-  padding: 5rem 2.5rem 0 2.5rem;
+  padding: 5rem 2.5rem 2.5rem 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -543,8 +520,8 @@ button:hover a {
 .summary {
   margin: 1rem auto;
   font-size: clamp(var(--text-size-mobile-medium), 5vw, var(--text-size-desktop-medium));
-  width: 70%;
   text-align: center;
+  max-width: 40rem;
 }
 
 .learn {
@@ -553,53 +530,45 @@ button:hover a {
 }
 
 .bullets {
+  margin: 1.5rem auto;
+}
+
+.bullets ul {
   font-size: clamp(var(--text-size-mobile-small), 5vw, var(--text-size-desktop-small));
-  list-style-position: outside;
-  margin: 0 auto;
-  margin-block: 1.5rem;
-  max-width: 40rem;
-  width: 70%;
+  margin-left: 1rem;
 }
 
 .nav-btns {
   display: flex;
-  gap: 2rem;
+  gap: clamp(0.5rem, 1vw, 2rem);
+  width: 100%;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 0.75rem;
 }
 
-.nav-btns button {
-  width: 18rem;
-  height: 3.75rem;
-  border: none;
-  border-radius: 50px;
+.nav-btns .button {
   background-color: var(--color-limeade);
-  margin: 0.5rem auto 0.75rem auto;
-}
-
-.nav-btns a {
-  display: grid;
-  padding-inline: 1.5rem;
-  grid-auto-flow: column;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  height: 100%;
-  justify-content: space-between;
   color: white;
+  font-size: clamp(1.3rem, 3vw, var(--text-size-mobile-medium-large));
+  margin: 0;
+  width: 100%;
+  display: flex;
+  max-width: 18.75rem;
 }
 
-.next a {
-  grid-template-columns: 1fr auto;
-}
-
-.nav-btns img {
-  height: 2.1875rem;
-}
-
-.cart-button {
+.nav-btns .button span {
+  flex-grow: 1;
   text-align: center;
 }
 
+.nav-btns img {
+  height: clamp(1.5rem, 4vw, 2.1875rem);
+}
+
 .add-cart {
-  width: 18rem;
+  width: 100%;
+  max-width: 18.75rem;
   height: 3.75rem;
   border-radius: 50px;
   border: none;
@@ -607,23 +576,25 @@ button:hover a {
   margin-bottom: 0.75rem;
   cursor: pointer;
   color: var(--color-white);
+  display: flex;
+  align-items: center;
+  padding-inline: 1.5rem;
+  transition: scale 300ms ease-in-out;
 }
 
 .add-cart span {
-  display: grid;
-  padding-inline: 1.5rem;
-  grid-auto-flow: column;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  height: 100%;
-  justify-content: space-between;
   font-size: var(--text-size-mobile-medium-large);
   font-family: "Inter", sans-serif;
   font-weight: var(--font-weight-bold);
+  flex-grow: 1;
 }
 
 .add-cart img {
   height: 2.1875rem;
+}
+
+.add-cart:hover {
+  scale: 1.05;
 }
 
 /* BOOKINGS */
@@ -800,9 +771,6 @@ button:hover a {
 .back-to-book {
   margin-top: 0;
   background-color: var(--color-limeade);
-}
-
-.back-to-book a {
   color: white;
 }
 
@@ -870,9 +838,6 @@ button:hover a {
 
 .back-home {
   background-color: var(--color-limeade);
-}
-
-.back-home a {
   color: var(--color-white);
 }
 
@@ -1071,6 +1036,10 @@ button:hover a {
 
   .button {
     width: 100%;
+    max-width: 28.125rem;
+  }
+
+  .add-cart {
     max-width: 28.125rem;
   }
 

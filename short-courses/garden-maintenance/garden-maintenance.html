@@ -27,11 +27,14 @@
 
         // update cart button
         let cart_button_text = document.getElementById("cart_button_text");
+        let cart_button = document.getElementById("cart-gm");
 
         if (cart_items[6] == "true") {
-          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Remove';
+          cart_button_text.innerHTML = "Remove";
+          cart_button.style.backgroundColor = "var(--color-army-green)";
         } else {
-          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Add to cart';
+          cart_button_text.innerHTML = "Add to cart";
+          cart_button.style.backgroundColor = "var(--color-limeade)";
         }
 
         // update links with cart data
@@ -52,11 +55,14 @@
 
         // update cart button
         let cart_button_text = document.getElementById("cart_button_text");
+        let cart_button = document.getElementById("cart-gm");
 
         if (cart_items[6] == "true") {
-          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Remove';
+          cart_button_text.innerHTML = "Remove";
+          cart_button.style.backgroundColor = "var(--color-army-green)";
         } else {
-          cart_button_text.innerHTML = '<img src="../../images/add-cart-white.png" alt="" /> Add to cart';
+          cart_button_text.innerHTML = "Add to cart";
+          cart_button.style.backgroundColor = "var(--color-limeade)";
         }
 
         // update links with cart data
@@ -131,25 +137,22 @@
       <h2 class="cost"><span>Cost: </span>R750</h2>
       <p class="summary">This short course provides basic knowledge of watering, pruning and planting in a domestic garden.</p>
       <h3 class="learn">What you will learn:</h3>
-      <ul class="bullets">
-        <li>Water restrictions and the watering requirements of indigenous and exotic plants</li>
-        <li>Pruning and propagation of plants</li>
-        <li>Planning meals</li>
-        <li>Planting techniques for different plant types</li>
-      </ul>
+      <div class="bullets">
+        <ul>
+          <li>Water restrictions and the watering requirements of indigenous and exotic plants</li>
+          <li>Pruning and propagation of plants</li>
+          <li>Planning meals</li>
+          <li>Planting techniques for different plant types</li>
+        </ul>
+      </div>
+
       <div class="nav-btns">
-        <button class="previous">
-          <a href="../cooking/cooking.html"><img src="../../images/chevron-left-white.png" alt="" />Previous Course</a>
-        </button>
+        <a href="../cooking/cooking.html" class="button"><img src="../../images/chevron-left-white.png" alt="" /><span>Previous</span></a>
       </div>
-      <div class="cart-button">
-        <button class="add-cart" id="cart-gm" onclick="btnAddCart_OnClick()">
-          <span id="cart_button_text"><img src="../../images/add-cart-white.png" alt="" />Add to cart</span>
-        </button>
-      </div>
-      <button type="button" class="button btn-to-bookings" style="margin-bottom: 2rem">
-        <a href="../../bookings/bookings.html"><img src="../../images/cart.png" /><span>Book Courses</span></a>
-      </button>
+
+      <button class="add-cart" id="cart-gm" onclick="btnAddCart_OnClick()"><img src="../../images/add-cart-white.png" alt="" /><span id="cart_button_text">Add to cart</span></button>
+
+      <a href="../../bookings/bookings.html" class="button btn-to-bookings"><img src="../../images/cart.png" /><span>Book Courses</span></a>
     </div>
 
     <script src="../../scripts/navbar.js"></script>
