@@ -5,8 +5,6 @@
 <div align="center" display="inline"><a href="https://github.com/YayoKB/ETN-App">Click here for the App version</a></div>
 
 # Overview
-
-# Overview
 ## 🤝🏼 Team members:
 - 👩🏼 Me (Designer and Front-End styling)
 - 👨🏾‍🦱 Matthew (Web and Mobile functionality)
